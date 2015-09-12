@@ -1,5 +1,5 @@
 #!/bin/bash
-TEXTEDITOR=vim
+TEXTEDITOR=nano
 
 if [ $# -gt 2 ]
 then
