@@ -11,5 +11,5 @@ To see usage a user can type journal --help.
 
 # Setup
 Once this repo is cloned, move the journal file into /usr/bin so that it can be run anywhere. Also make sure to chmod to allow execution:
-chmod u+x journal
+chmod u+x journal ;
 sudo cp journal /usr/bin
