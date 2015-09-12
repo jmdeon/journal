@@ -63,7 +63,8 @@ fi
 #makes file with today's date if there isn't one already
 if [ ! -f /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt ]
 then 
-  echo -e "*Joseph d'Eon\n""*$(date +"%A %B %d, %Y")""\n""*Personal Journal" > ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  USERNAME=`who am i | cut -f1 -d" "`
+  echo -e "*$USERNAME\n""*$(date +"%A %B %d, %Y")""\n""*Personal Journal" > ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
   echo -e "\n" >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
   echo "********************" >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
   echo "Time of Entry "$(date +%R) >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
