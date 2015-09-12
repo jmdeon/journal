@@ -49,37 +49,37 @@ then
 fi
 
 #makes year directory if there isn't one already
-if [ ! -d /home/jody/Journal/$(date +"%Y") ]
+if [ ! -d ~/Journal/$(date +"%Y") ]
 then
-  mkdir /home/jody/Journal/$(date +"%Y")
+  mkdir ~/Journal/$(date +"%Y")
 fi
 
 #makes month directory if there isn't one already
-if [ ! -d /home/jody/Journal/$(date +"%Y")/$(date +"%B") ] 
+if [ ! -d ~/Journal/$(date +"%Y")/$(date +"%B") ] 
 then
-  mkdir /home/jody/Journal/$(date +"%Y")/$(date +"%B")
+  mkdir ~/Journal/$(date +"%Y")/$(date +"%B")
 fi
 
 #makes file with today's date if there isn't one already
 if [ ! -f /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt ]
 then 
-  echo -e "*Joseph d'Eon\n""*$(date +"%A %B %d, %Y")""\n""*Personal Journal" > /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
-  echo -e "\n" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
-  echo "********************" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
-  echo "Time of Entry "$(date +%R) >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
-  echo "********************" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo -e "*Joseph d'Eon\n""*$(date +"%A %B %d, %Y")""\n""*Personal Journal" > ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo -e "\n" >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "********************" >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "Time of Entry "$(date +%R) >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "********************" >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
 fi
 
 #appends file with timestamp
-if [ $(( $(date +%s) -$(date +%s -r /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt) )) -gt $((600)) ]
+if [ $(( $(date +%s) -$(date +%s -r ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt) )) -gt $((600)) ]
 then
-  echo -e "\n" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
-  echo "********************" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
-  echo "Time of Entry "$(date +%R) >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
-  echo "********************" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo -e "\n" >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "********************" >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "Time of Entry "$(date +%R) >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "********************" >> ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
 fi
 
 #opens the file with the cursor at the end
-$TEXTEDITOR + /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+$TEXTEDITOR + ~/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
 
 exit 0
