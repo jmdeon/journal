@@ -1,0 +1,85 @@
+#!/bin/bash
+TEXTEDITOR=vim
+
+if [ $# -gt 2 ]
+then
+  echo "Too many arguments. Try --help for usage."
+  exit 1
+fi
+
+if [ $# -eq 1 ]
+then
+  if [ $1 == "--help" ]
+  then
+    echo "This program will help you with your journal needs!"
+    printf "To configure your text editor, use:\nsudo journal --texteditor <your_text_editor>\n"
+    exit 0
+  else
+    echo "Invalid argument. Try --help for usage."
+    exit 1
+  fi
+fi
+
+if [ $# -eq 2 ]
+then
+  if [ $1 == "--texteditor" ]
+  then
+    if [ `whoami` != "root" ]
+    then
+      echo "To change your text editor, you must run as root."
+      exit 1
+    fi
+    #change first two lines of script with updated text editor
+    echo "#!/bin/bash" > ~/temp.txt
+    echo "TEXTEDITOR=$2" >> ~/temp.txt
+    tail -n+3 journal >> ~/temp.txt
+    mv ~/temp.txt /usr/bin/journal
+    #get username
+    user=`who am i | cut -f1 -d" "`
+    #change owner of updated journal file
+    chown $user /usr/bin/journal
+    #add executability to new journal file for user
+    chmod u+x /usr/bin/journal
+    exit 0
+    else
+      echo "Invalid argument. Try --help for usage."
+      exit 1
+    fi
+
+fi
+
+#makes year directory if there isn't one already
+if [ ! -d /home/jody/Journal/$(date +"%Y") ]
+then
+  mkdir /home/jody/Journal/$(date +"%Y")
+fi
+
+#makes month directory if there isn't one already
+if [ ! -d /home/jody/Journal/$(date +"%Y")/$(date +"%B") ] 
+then
+  mkdir /home/jody/Journal/$(date +"%Y")/$(date +"%B")
+fi
+
+#makes file with today's date if there isn't one already
+if [ ! -f /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt ]
+then 
+  echo -e "*Joseph d'Eon\n""*$(date +"%A %B %d, %Y")""\n""*Personal Journal" > /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo -e "\n" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "********************" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "Time of Entry "$(date +%R) >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "********************" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+fi
+
+#appends file with timestamp
+if [ $(( $(date +%s) -$(date +%s -r /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt) )) -gt $((600)) ]
+then
+  echo -e "\n" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "********************" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "Time of Entry "$(date +%R) >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+  echo "********************" >> /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+fi
+
+#opens the file with the cursor at the end
+$TEXTEDITOR + /home/jody/Journal/$(date +"%Y")/$(date +"%B")/$(date +"%B_%d_%Y").txt
+
+exit 0
