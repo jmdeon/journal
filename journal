@@ -32,7 +32,7 @@ then
     #change first two lines of script with updated text editor
     echo "#!/bin/bash" > ~/temp.txt
     echo "TEXTEDITOR=$2" >> ~/temp.txt
-    tail -n+3 journal >> ~/temp.txt
+    tail -n+3 /usr/bin/journal >> ~/temp.txt
     mv ~/temp.txt /usr/bin/journal
     #get username
     user=`who am i | cut -f1 -d" "`
